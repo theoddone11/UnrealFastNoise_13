@@ -13,7 +13,8 @@ UENUM(BlueprintType)
 enum class EUFNCompare : uint8
 {
 	ECV_LessThan UMETA(DisplayName = "<"),
-	ECV_GreaterThan UMETA(DisplayName = ">")
+	ECV_GreaterThan UMETA(DisplayName = ">"),
+	ECV_NOUGHT UMETA(DisplayName = "Ø")
 };
 
 UCLASS()

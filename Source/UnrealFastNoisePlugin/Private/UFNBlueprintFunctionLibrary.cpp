@@ -11,6 +11,10 @@
 #include "UnrealFastNoisePlugin/Public/UFNShoreFilterModule.h"
 #include "UnrealFastNoisePlugin/Public/UFNSplineGenerator.h"
 #include "UnrealFastNoisePlugin/Public/UFNWarpModule.h"
+#include "UnrealFastNoisePlugin/Public/UFNClampModule.h"
+#include "UnrealFastNoisePlugin/Public/UFNCompareModule.h"
+
+
 
 #include <Runtime/Engine/Classes/Components/SplineComponent.h>
 
@@ -274,5 +278,37 @@ UUFNNoiseGenerator* UUFNBlueprintFunctionLibrary::CreateShoreFilterModule(UObjec
 	NewShoreFilterModule->Threshhold = threshold;
 
 	return NewShoreFilterModule;
+}
+
+UUFNNoiseGenerator* UUFNBlueprintFunctionLibrary::CreateCompareModule(UObject* outer, UUFNNoiseGenerator* inputModule1, UUFNNoiseGenerator* inputModule2, EUFNCompare compareModule)
+{
+	if (!(inputModule1 && inputModule2 && outer))
+	{
+		return nullptr;
+	}
+
+	UUFNCompareModule* NewCompareModule = NewObject<UUFNCompareModule>(outer);
+
+	NewCompareModule->InputModule1 = inputModule1;
+	NewCompareModule->InputModule2 = inputModule2;
+	NewCompareModule->CompareModule = compareModule;
+
+	return NewCompareModule;
+}
+
+UUFNNoiseGenerator* UUFNBlueprintFunctionLibrary::CreateClampModule(UObject* outer, UUFNNoiseGenerator* inputmodule1, bool bClampMin, bool bClampMax, float ClampMin, float ClampMax)
+{
+	if (!(outer && inputmodule1)){
+		return nullptr;
+	}
+	UUFNClampModule* NewClampModule = NewObject<UUFNClampModule>(outer);
+	
+	NewClampModule->InputModule1 = inputmodule1;
+	NewClampModule->bClampMax = bClampMax;
+	NewClampModule->bClampMin = bClampMin;
+	NewClampModule->ClampMin = ClampMin;
+	NewClampModule->ClampMax = ClampMax;
+	
+	return NewClampModule;
 }
 

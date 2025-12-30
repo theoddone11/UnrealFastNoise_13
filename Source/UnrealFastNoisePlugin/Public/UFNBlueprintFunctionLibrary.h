@@ -1,9 +1,12 @@
 #pragma once
 // Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+#include "UFNCompareModule.h"
 #include "UnrealFastNoisePlugin/Public/FastNoise/FastNoise.h"
 #include "UnrealFastNoisePlugin/Public/UnrealFastNoisePlugin.h"
 
 #include "UFNBlueprintFunctionLibrary.generated.h"
+
+enum class EUFNCompare : uint8;
 
 UCLASS()
 class UNREALFASTNOISEPLUGIN_API UUFNBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
@@ -50,4 +53,8 @@ class UNREALFASTNOISEPLUGIN_API UUFNBlueprintFunctionLibrary : public UBlueprint
 	// Creates a Shore Filters module. Adjusts terrain near water level to encourage smooth beach like features.
 	UFUNCTION(BlueprintPure, Category = "UnrealFastNoise")
 	static UUFNNoiseGenerator* CreateShoreFilterModule(UObject* outer, UUFNNoiseGenerator* inputModule1, const float shoreHeight, const float threshold);
+	UFUNCTION(BlueprintPure, Category = "UnrealFastNoise")
+	static UUFNNoiseGenerator* CreateCompareModule(UObject* outer, UUFNNoiseGenerator* inputModule1, UUFNNoiseGenerator* inputModule2, EUFNCompare compareModule = EUFNCompare::ECV_NOUGHT);
+	UFUNCTION(BlueprintPure, Category = "UnrealFastNoise")
+	static UUFNNoiseGenerator* CreateClampModule(UObject* outer, UUFNNoiseGenerator* inputModule1, bool bClampMin = false, bool bClampMax = false, float ClampMin = -4999.f, float ClampMax = 4999.f);
 };

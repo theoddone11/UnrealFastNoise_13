@@ -21,22 +21,14 @@ public:
 
 	float GetNoise3D(float InX, float InY, float InZ) override;
 	float GetNoise2D(float InX, float InY) override;
+	
 	UPROPERTY()
 	UUFNNoiseGenerator* InputModule1;
-	UPROPERTY()
-	UUFNNoiseGenerator* InputModule2;
-
-	UPROPERTY()
-	bool bClampMin = false;
 	
-	UPROPERTY()
-	bool bClampMax = false;
-	
-	UPROPERTY()
-	float ClampMin = 0.0f;
-	
-	UPROPERTY()
-	float ClampMax = 0.0f;
+	bool bClampMin;
+	bool bClampMax;
+	float ClampMin;
+	float ClampMax;
 	
 };
 
