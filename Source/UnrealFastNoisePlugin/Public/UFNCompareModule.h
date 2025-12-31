@@ -26,6 +26,9 @@ public:
 	UUFNCompareModule(const FObjectInitializer& ObjectInitializer);
 
 	float GetNoise3D(float InX, float InY, float InZ) override;
+	
+
+	
 	float GetNoise2D(float InX, float InY) override;
 	UPROPERTY()
 	UUFNNoiseGenerator* InputModule1;

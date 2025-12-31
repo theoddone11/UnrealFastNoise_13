@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+// theoddone11 added this module to midgen's UnrealFastNoise project based on the FastNoise api. 
 
 #include "UFNCompareModule.h"
 
@@ -50,27 +50,29 @@ float UUFNCompareModule::GetNoise2D(float InX, float InY)
 	{
 		return 0.0f;
 	}
+	float Noise1 = InputModule1->GetNoise2D(InX, InY);
+	float Noise2 = InputModule2->GetNoise2D(InX, InY);
 	switch (CompareModule)
 	{
 	case (EUFNCompare::ECV_GreaterThan): 
-		if (InputModule1->GetNoise2D(InX, InY) > InputModule2->GetNoise2D(InX, InY)){
-			return InputModule1->GetNoise2D(InX, InY);
+		if (Noise1 > Noise2){
+			return Noise1;
 		}
 		else{
-			return InputModule2->GetNoise2D(InX, InY);
+			return Noise2;
 		}
 		
 	case (EUFNCompare::ECV_LessThan):
-		if (InputModule1->GetNoise2D(InX, InY) < InputModule2->GetNoise2D(InX, InY)){
-			return InputModule1->GetNoise2D(InX, InY);
+		if (Noise1 < Noise2){
+			return Noise1;
 		}
 		else{
-			return InputModule2->GetNoise2D(InX, InY);
+			return Noise2;
 		}		
 	case (EUFNCompare::ECV_NOUGHT):
-		return 0.0f;
+		return (Noise1 / Noise2);
 	
 	default: 
-		return 0.0f;
+		return (Noise1 + Noise2) / 2;;
 	}
 }

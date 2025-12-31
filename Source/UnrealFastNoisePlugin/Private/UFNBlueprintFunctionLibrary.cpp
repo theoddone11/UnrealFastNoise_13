@@ -23,7 +23,7 @@ UUFNBlueprintFunctionLibrary::UUFNBlueprintFunctionLibrary(const class FObjectIn
 {
 }
 
-UUFNNoiseGenerator* UUFNBlueprintFunctionLibrary::CreateNoiseGenerator(UObject* outer, ENoiseType noiseType, ECellularDistanceFunction cellularDistanceFunction, ECellularReturnType cellularReturnType, EFractalType fractalType, EInterp interpolation, int32 seed, int32 octaves, float frequency, float lacunarity, float fractalGain)
+UUFNNoiseGenerator* UUFNBlueprintFunctionLibrary::CreateNoiseGenerator(UObject* outer, ENoiseType noiseType, ECellularDistanceFunction cellularDistanceFunction, ECellularReturnType cellularReturnType, EFractalType fractalType, EInterp interpolation, int32 seed, int32 octaves, float frequency, float lacunarity, float fractalGain, bool bDiscrete)
 {
 	UFastNoise* NoiseGen = NewObject<UFastNoise>(outer);
 
@@ -37,7 +37,7 @@ UUFNNoiseGenerator* UUFNBlueprintFunctionLibrary::CreateNoiseGenerator(UObject* 
 	NoiseGen->SetCellularDistanceFunction(cellularDistanceFunction);
 	NoiseGen->SetCellularReturnType(cellularReturnType);
 	NoiseGen->SetInterp(interpolation);
-
+	NoiseGen->SetIsDiscrete(bDiscrete);
 	return NoiseGen;
 }
 
