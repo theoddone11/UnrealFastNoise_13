@@ -188,6 +188,7 @@ public:
 	// The lookup value is acquired through GetNoise() so ensure you SetNoiseType() on the noise lookup, value, gradient or simplex is recommended
 	void SetCellularNoiseLookup(UFastNoise* noise) { m_cellularNoiseLookup = noise; }
 
+	void SetIsDiscrete(bool bIsIt) { bDiscreteOrContinuous = bIsIt; }
 	// Sets the maximum warp distance from original location when using PositionWarp{Fractal}(...)
 	// Default: 1.0
 	void SetPositionWarpAmp(float positionWarpAmp) { m_positionWarpAmp = positionWarpAmp / 0.45f; }
@@ -428,7 +429,7 @@ public:
 protected:
 	unsigned char m_perm[512];
 	unsigned char m_perm12[512];
-
+	
 	int m_seed = 1337;
 	float m_frequency = 0.01f;
 	EInterp m_interp = EInterp::InterpQuintic;
@@ -459,7 +460,9 @@ protected:
 	UFastNoise* m_cellularNoiseLookup = nullptr;
 
 	float m_positionWarpAmp = 1.0f / 0.45f;
-
+	
+	//theoddone11 added the following line:
+	bool bDiscreteOrContinuous = false;
 	//2D
 	float SingleValueFractalFBM(float x, float y);
 	float SingleValueFractalBillow(float x, float y);

@@ -539,7 +539,13 @@ float UFastNoise::SingleValueFractalRigidMulti(float x, float y)
 
 float UFastNoise::GetValue(float x, float y)
 {
-	return SingleValue(0, x * m_frequency, y * m_frequency);
+	if (!bDiscreteOrContinuous){
+		return SingleValue(0, x * m_frequency, y * m_frequency);
+	}
+		else
+		{
+			return FMath::TruncToFloat((SingleValue(0, x * m_frequency, y * m_frequency)));
+		}
 }
 
 float UFastNoise::SingleValue(unsigned char offset, float x, float y)
@@ -1508,7 +1514,7 @@ float UFastNoise::SingleCellular(float x, float y)
 
 				float vecX = xi - x + CELL_2D_X[lutPos];
 				float vecY = yi - y + CELL_2D_Y[lutPos];
-
+ 
 				float newDistance = vecX * vecX + vecY * vecY;
 
 				if (newDistance < distance)

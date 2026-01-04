@@ -1,9 +1,12 @@
 #pragma once
 // Copyright 1998-2013 Epic Games, Inc. All Rights Reserved.
+#include "UFNCompareModule.h"
 #include "UnrealFastNoisePlugin/Public/FastNoise/FastNoise.h"
 #include "UnrealFastNoisePlugin/Public/UnrealFastNoisePlugin.h"
 
 #include "UFNBlueprintFunctionLibrary.generated.h"
+
+enum class EUFNCompare : uint8;
 
 UCLASS()
 class UNREALFASTNOISEPLUGIN_API UUFNBlueprintFunctionLibrary : public UBlueprintFunctionLibrary
@@ -11,7 +14,7 @@ class UNREALFASTNOISEPLUGIN_API UUFNBlueprintFunctionLibrary : public UBlueprint
 	GENERATED_UCLASS_BODY()
 	// Creates a new noise generator module. Note that not all parameters may be relevant e.g. Fractal noise types will ignore Cellular parameters
 	UFUNCTION(BlueprintPure, Category = "UnrealFastNoise")
-	static UUFNNoiseGenerator* CreateNoiseGenerator(UObject* outer, ENoiseType noiseType, ECellularDistanceFunction cellularDistanceFunction, ECellularReturnType cellularReturnType, EFractalType fractalType, EInterp interpolation, int32 seed = 1337, int32 octaves = 4, float frequency = 0.001f, float lacunarity = 2.0f, float fractalGain = 0.5f);
+	static UUFNNoiseGenerator* CreateNoiseGenerator(UObject* outer, ENoiseType noiseType, ECellularDistanceFunction cellularDistanceFunction, ECellularReturnType cellularReturnType, EFractalType fractalType, EInterp interpolation, int32 seed = 1337, int32 octaves = 4, float frequency = 0.001f, float lacunarity = 2.0f, float fractalGain = 0.5f, bool bDiscrete = false);
 	// Creates a Select module. Returns a value either from input1 or input 2, depending on the value returned from the select module. Has sine in/out smooth falloff option (may be wonky)
 	UFUNCTION(BlueprintPure, Category = "UnrealFastNoise")
 	static UUFNNoiseGenerator* CreateSelectModule(UObject* outer, UUFNNoiseGenerator* inputModule1, UUFNNoiseGenerator* inputModule2, UUFNNoiseGenerator* selectModule, ESelectInterpType interpolationType = ESelectInterpType::None, float falloff = 0.0f, float threshold = 0.0f, int32 steps = 4);
@@ -50,4 +53,22 @@ class UNREALFASTNOISEPLUGIN_API UUFNBlueprintFunctionLibrary : public UBlueprint
 	// Creates a Shore Filters module. Adjusts terrain near water level to encourage smooth beach like features.
 	UFUNCTION(BlueprintPure, Category = "UnrealFastNoise")
 	static UUFNNoiseGenerator* CreateShoreFilterModule(UObject* outer, UUFNNoiseGenerator* inputModule1, const float shoreHeight, const float threshold);
+	UFUNCTION(BlueprintPure, Category = "UnrealFastNoise")
+	
+	//________________theoddone11's_modules________________//
+	
+	/** 
+* @param > returns if [InputModule1  > InputModule2]
+*  @param < returns if [InputModule1  < InputModule2]
+*  @param Ø returns InputModule1 / InputModule2 
+*  @return > returns if [InputModule1  > InputModule2], < returns if [InputModule1  < InputModule2], Ø returns InputModule1 / InputModule2 
+ */
+	static UUFNNoiseGenerator* CreateCompareModule(UObject* outer, UUFNNoiseGenerator* inputModule1, UUFNNoiseGenerator* inputModule2, EUFNCompare compareModule = EUFNCompare::ECV_NOUGHT);
+	UFUNCTION(BlueprintPure, Category = "UnrealFastNoise")
+	
+	/** 
+ * Clamps input module's Z height between the min and max
+ *  @param bClampMin Whether ClampMin has any affect
+ *  @param bClampMax Whether ClampMax has any affect*/
+	static UUFNNoiseGenerator* CreateClampModule(UObject* outer, UUFNNoiseGenerator* inputModule1, bool bClampMin = false, bool bClampMax = false, float ClampMin = -4999.f, float ClampMax = 4999.f);
 };
