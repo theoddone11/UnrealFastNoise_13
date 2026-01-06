@@ -9,8 +9,8 @@
 UUFNClampModule::UUFNClampModule(const FObjectInitializer& ObjectInitializer)	
 : Super(ObjectInitializer)
 , InputModule1(nullptr)
-, bClampMin(nullptr)
-, bClampMax(nullptr)
+, bClampMin(false)
+, bClampMax(false)
 , ClampMin(0.f)
 , ClampMax(0.f)
 {
