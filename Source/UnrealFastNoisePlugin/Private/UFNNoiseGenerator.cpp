@@ -7,9 +7,12 @@ UUFNNoiseGenerator::UUFNNoiseGenerator(const class FObjectInitializer& ObjectIni
 
 }
 
-float UUFNNoiseGenerator::GetNoise2D(float InX, float InY)
-{
+float UUFNNoiseGenerator::GetNoise2D(float InX, float InY){
 	return -2.0f;
+}
+
+float UUFNNoiseGenerator::GetNoise2DV(FVector2D XY){
+	return GetNoise2D(XY.X, XY.Y);
 }
 
 float UUFNNoiseGenerator::GetNoise3D(float InX, float InY, float InZ)

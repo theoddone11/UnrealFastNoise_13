@@ -14,5 +14,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "UnrealFastNoise")
 	virtual float GetNoise2D(float InX, float InY);
 	UFUNCTION(BlueprintCallable, Category = "UnrealFastNoise")
+	virtual float GetNoise2DV(FVector2D XY);
+	UFUNCTION(BlueprintCallable, Category = "UnrealFastNoise")
 	virtual float GetNoise3D(float InX, float InY, float InZ);
 };
